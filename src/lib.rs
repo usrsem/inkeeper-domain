@@ -23,6 +23,7 @@ impl ProgramInfo {
     }
 }
 
+#[derive(Debug, Eq)]
 pub enum DayOfWeek {
     Monday,
     Tuesday,
@@ -33,6 +34,7 @@ pub enum DayOfWeek {
     Sunday,
 }
 
+#[derive(Debug, Eq)]
 pub enum ProgramName {
     Photoshop,
     Sai,
