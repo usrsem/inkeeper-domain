@@ -1,12 +1,17 @@
+extern crate chrono;
+
+use self::ProgramName::*;
+use chrono::{NaiveDateTime, Utc};
+use std::slice::Iter;
+
 #[derive(Debug, PartialEq, Clone)]
 pub struct ProgramInfo {
     pub program_name: String,
     pub window_title: String,
-    pub file_path: String,
     pub file_name: String,
-    pub process_id: u32,
-    pub is_minimized: bool,
     pub is_active: bool,
+    pub start_time: NaiveDateTime,
+    pub end_time: Option<NaiveDateTime>,
 }
 
 impl ProgramInfo {
@@ -15,10 +20,9 @@ impl ProgramInfo {
             program_name: String::from(program_name),
             window_title: String::from(window_title),
             file_name: String::new(),
-            file_path: String::new(),
-            process_id: 0,
-            is_minimized: false,
             is_active: true,
+            start_time: Utc::now().naive_local(),
+            end_time: None,
         }
     }
 }
@@ -38,4 +42,11 @@ pub enum DayOfWeek {
 pub enum ProgramName {
     Photoshop,
     Sai,
+}
+
+impl ProgramName {
+    pub fn iterator() -> Iter<'static, ProgramName> {
+        static PROGRAM_NAMES: [ProgramName; 2] = [Photoshop, Sai];
+        PROGRAM_NAMES.iter()
+    }
 }
